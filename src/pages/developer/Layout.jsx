@@ -11,7 +11,8 @@ const Layout = ({ children, menu = "", submenu = "" }) => {
       {/* NAVIGATION */}
       <Navigation menu={menu} submenu={submenu} navigationList={navList} />
       {/* BODY */}
-      {children}
+      <div className="wrapper"> {children}</div>
+
       {/* FOOTER */}
     </>
   );

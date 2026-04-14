@@ -7,5 +7,5 @@ $conn = checkDBConnection($conn);
 
 // make use of classes for save database
 
-$name = $data['name'];
-echo "Hello";
+$role_name = $data['role_name'];
+returnError($role_name);
