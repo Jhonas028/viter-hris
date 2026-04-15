@@ -7,6 +7,7 @@ function checkDBConnection()
 {
     try {
         $conn = Database::connectDB();
+        return $conn;
     } catch (PDOException $error) {
         $response = new Response();
         $error = [];
@@ -14,7 +15,7 @@ function checkDBConnection()
         $error['success'] = "false";
         $error['error'] = "Database connection failed";
         $response->setSuccess(false);
-        $response->setData($result);
+        $response->setData($error);
         $response->send();
         exit;
     }
@@ -443,20 +444,6 @@ function returnSuccess($object, $name, $query, $data = "")
     $returnData["server_datetime"] = date('Y-m-d H:i:s');
     // return $returnData;
     $response->setData($returnData);
-    $response->send();
-    exit;
-}
-
-// return error
-function returnError($msg)
-{
-    $response = new Response();
-    $error = [];
-    $response->setSuccess(false);
-    $error["count"] = 0;
-    $error["success"] = false;
-    $error['error'] = $msg;
-    $response->setData($error);
     $response->send();
     exit;
 }
