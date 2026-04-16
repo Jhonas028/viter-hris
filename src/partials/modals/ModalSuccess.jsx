@@ -1,7 +1,9 @@
-import { GetFocus, devNavUrl } from "@/components/helpers/functions-general";
-import { setIsAccountUpdated, setSuccess } from "@/store/StoreAction";
-import { StoreContext } from "@/store/StoreContext";
+
 import React from "react";
+import { devNavUrl, GetFocus } from "../../functions/functions-general";
+
+import { StoreContext } from "../../store/StoreContext";
+import { setIsAccountUpdated, setSuccess } from "../../store/StoreAction";
 
 const ModalSuccess = () => {
   const { store, dispatch } = React.useContext(StoreContext);
