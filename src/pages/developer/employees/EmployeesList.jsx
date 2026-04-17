@@ -10,6 +10,7 @@ import TableLoading from "../../../partials/TableLoading";
 import FetchingSpinner from "../../../partials/spinners/FetchingSpinner";
 import Loadmore from "../../../partials/Loadmore";
 import Status from "../../../partials/Status";
+import SearchBar from "../../../partials/SearchBar";
 
 const EmployeesList = ({ itemEdit, setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -60,6 +61,29 @@ const EmployeesList = ({ itemEdit, setItemEdit }) => {
   }, [inView]);
   return (
     <>
+      <div className="flex items-enter justify-between">
+        <div className="relative">
+          <label htmlFor="">Status</label>
+          <select
+            onChange={(e) => setFilterData(e.target.value)}
+            value={filterData}
+          >
+            <option value="">All</option>
+            <option value="1">Active</option>
+            <option value="0">Inactive</option>
+          </select>
+        </div>
+        <SearchBar
+          search={search}
+          dispatch={dispatch}
+          store={store}
+          result={result?.pages}
+          isFetching={isFetching}
+          setOnSearch={setOnSearch}
+          onSearch={onSearch}
+        />
+      </div>
+
       <div className="relative pt-4 rounded-md">
         {status !== "pending" && isFetching && <FetchingSpinner />}
         <table>
