@@ -4,6 +4,7 @@ import { FaPlus } from "react-icons/fa";
 import { StoreContext } from "../../../store/StoreContext";
 import { setIsAdd } from "../../../store/StoreAction";
 import EmployeesList from "./EmployeesList";
+import EmployeesAdd from "./ModalAddEmployees";
 
 const Employees = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -34,7 +35,7 @@ const Employees = () => {
           <EmployeesList itemEdit={itemEdit} setItemEdit={setItemEdit} />
         </div>
       </Layout>
-      {/* {store.isAdd && <ModalAddRoles itemEdit={itemEdit} />} */}
+      {store.isAdd && <EmployeesAdd itemEdit={itemEdit} />}
     </>
   );
 };
