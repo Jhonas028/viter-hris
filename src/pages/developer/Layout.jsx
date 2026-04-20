@@ -17,6 +17,7 @@ const Layout = ({ children, menu = "", submenu = "" }) => {
       <div className="wrapper"> {children}</div>
 
       {/* FOOTER */}
+      {store.success && <ModalSuccess />}
     </>
   );
 };
