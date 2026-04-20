@@ -89,7 +89,7 @@ const EmployeesList = ({ itemEdit, setItemEdit }) => {
   }, [inView]);
   return (
     <>
-      <div className="flex items-enter justify-between">
+      <div className="flex items-enter justify-between py-5">
         <div className="relative">
           <label htmlFor="">Status</label>
           <select

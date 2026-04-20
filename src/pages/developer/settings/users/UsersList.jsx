@@ -22,6 +22,9 @@ import ModalDelete from "../../../../partials/modals/ModalDelete";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { queryDataInfinite } from "../../../../functions/custom-hooks/queryDataInfinite";
 import { useInView } from "react-intersection-observer";
+import ServerError from "../../../../partials/ServerError";
+import Loadmore from "../../../../partials/Loadmore";
+import SearchBar from "../../../../partials/SearchBar";
 
 const UsersList = ({ setItemEdit, itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -73,12 +76,38 @@ const UsersList = ({ setItemEdit, itemEdit }) => {
 
   return (
     <>
+      <div className="py-5 flex items-center justify-between">
+        <div className="relative">
+          <label htmlFor="">Status</label>
+          <select
+            name="satus"
+            id=""
+            value={filterData}
+            onChange={(e) => setFilterData(e.target.value)}
+          >
+            <option value="">All</option>
+            <option value="1">Active</option>
+            <option value="0">Inactive</option>
+          </select>
+        </div>
+        <SearchBar
+          search={search}
+          dispatch={dispatch}
+          store={store}
+          result={result?.pages}
+          isFetching={isFetching}
+          setOnSearch={setOnSearch}
+          onSearch={onSearch}
+        />
+      </div>
+
       <div className="relative">
-        {status !== "pending" && isFetiching && <FetchingSpinner />}
+        {status !== "pending" && isFetching && <FetchingSpinner />}
         <table>
           <thead>
             <tr>
               <th>#</th>
+              <th>Status</th>
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
@@ -86,7 +115,68 @@ const UsersList = ({ setItemEdit, itemEdit }) => {
               <th>Updated</th>
             </tr>
           </thead>
+          <tbody>
+            {/* loading screen */}
+            {!error &&
+              (status == "pending" || result?.pages[0]?.count == 0) && (
+                <tr>
+                  <td colSpan="100%" className="p-10">
+                    {status == "pending" ? (
+                      <TableLoading cols={2} count={20} />
+                    ) : (
+                      <NoData />
+                    )}
+                  </td>
+                </tr>
+              )}
+            {/* if request api failed */}
+            {error && (
+              <tr>
+                <td colSpan="100%" className="p-10">
+                  <ServerError />
+                </td>
+              </tr>
+            )}
+            {/* if request api sucess and data exist then show */}
+            {result?.pages.map((pages, key) => (
+              <React.Fragment key={key}>
+                {pages?.data.map((item, key) => {
+                  return (
+                    <tr key={key}>
+                      <td>{counter++}</td>
+                      <td>
+                        <Status
+                          text={
+                            item.users_is_active == 1 ? "active" : "inactive"
+                          }
+                        />
+                      </td>
+                      <td>
+                        {item.users_first_name} {item.users_last_name}
+                      </td>
+                      <td>{item.users_email}</td>
+                      <td>{item.role_name}</td>
+                      <td>{formatDate(item.users_created)}</td>
+                      <td>{formatDate(item.users_updated)}</td>
+                    </tr>
+                  );
+                })}
+              </React.Fragment>
+            ))}
+          </tbody>
         </table>
+        <div className="loadmore flex justify-center flex-col items-center pb-10">
+          <Loadmore
+            fetchNextPage={fetchNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            hasNextPage={hasNextPage}
+            result={result?.pages[0]}
+            setPage={setPage}
+            page={page}
+            refView={ref}
+            isSearchOrFilter={store.isSearch || store?.isFilter}
+          />
+        </div>
       </div>
     </>
   );

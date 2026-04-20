@@ -78,7 +78,7 @@ class Users
             $sql .= " {$this->tblSettingsRoles} as roles ";
             $sql .= " where users.users_role_id = roles.role_aid ";
             // FILTER
-            $sql .= $this->users_is_active != '' ? " users.users_is_active = :users_is_active " : " ";
+            $sql .= $this->users_is_active != '' ? " and users.users_is_active = :users_is_active " : " ";
             // SEARCH
             $sql .= $this->search != '' ? " and ( " : " ";
             $sql .= $this->search != '' ? " users.users_first_name like :users_first_name  " : " ";
@@ -115,7 +115,7 @@ class Users
             $sql .= " {$this->tblSettingsRoles} as roles ";
             $sql .= " where users.users_role_id = roles.role_aid ";
             // FILTER
-            $sql .= $this->users_is_active != '' ? " users.users_is_active = :users_is_active " : " ";
+            $sql .= $this->users_is_active != '' ? " and users.users_is_active = :users_is_active " : " ";
             // SEARCH
             $sql .= $this->search != '' ? " and ( " : " ";
             $sql .= $this->search != '' ? " users.users_first_name like :users_first_name  " : " ";
@@ -126,7 +126,7 @@ class Users
             $sql .= $this->search != '' ? " ) " : " ";
             // THIS IS FOR PAGINATION LIKE FACEBOOK SCROLLING
             $sql .= "limit :start, ";
-            $sql .= " :total "; 
+            $sql .= " :total ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 // FOR FILTER 

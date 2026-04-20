@@ -39,7 +39,7 @@ const ModalAddUsers = ({ itemEdit, filterArrayActiveRoles }) => {
         values,
       ),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["roles"] });
+      queryClient.invalidateQueries({ queryKey: ["users"] });
 
       if (data.success) {
         dispatch(setSuccess(true));
