@@ -88,18 +88,17 @@ class Users
             $sql .= $this->search != '' ? " or CONCAT(users.users_first_name,' ',users.users_last_name) like :users_first_fullname " : " ";
             $sql .= $this->search != '' ? " ) " : " ";
             $query = $this->connection->prepare($sql);
-            $query->execute([
-                // FOR FILTER 
-                ...$this->users_is_active != '' ? ["users_is_active" => $this->users_is_active] : [],
-                // FOR SEARCHING
-                ...$this->search != '' ? [
+            $params = array_merge(
+                $this->users_is_active != '' ? ["users_is_active" => $this->users_is_active] : [],
+                $this->search != '' ? [
                     "users_first_name" => "%{$this->search}%",
                     "users_last_name" => "%{$this->search}%",
                     "users_email" => "%{$this->search}%",
                     "users_last_fullname" => "%{$this->search}%",
                     "users_first_fullname" => "%{$this->search}%",
-                ] : [],
-            ]);
+                ] : []
+            );
+            $query->execute($params);
         } catch (PROException $e) {
             $query = false;
         }
@@ -128,21 +127,21 @@ class Users
             $sql .= "limit :start, ";
             $sql .= " :total ";
             $query = $this->connection->prepare($sql);
-            $query->execute([
-                // FOR FILTER 
-                ...$this->users_is_active != '' ? ["users_is_active" => $this->users_is_active] : [],
-                // FOR SEARCHING
-                ...$this->search != '' ? [
+            $params = array_merge(
+                $this->users_is_active != '' ? ["users_is_active" => $this->users_is_active] : [],
+                $this->search != '' ? [
                     "users_first_name" => "%{$this->search}%",
                     "users_last_name" => "%{$this->search}%",
                     "users_email" => "%{$this->search}%",
                     "users_last_fullname" => "%{$this->search}%",
                     "users_first_fullname" => "%{$this->search}%",
                 ] : [],
-                "start" => $this->start - 1,
-                "total" => $this->total,
-
-            ]);
+                [
+                    "start" => $this->start - 1,
+                    "total" => $this->total,
+                ]
+            );
+            $query->execute($params);
         } catch (PROException $e) {
             $query = false;
         }
