@@ -61,6 +61,8 @@ const ModalAddUsers = ({ itemEdit, filterArrayActiveRoles }) => {
     users_password: itemEdit ? itemEdit.users_password : "",
     users_email: itemEdit ? itemEdit.users_email : "",
 
+    users_first_name_old: itemEdit ? itemEdit.users_first_name : "",
+    users_last_name_old: itemEdit ? itemEdit.users_last_name : "",
     users_email_old: itemEdit ? itemEdit.users_email : "",
   };
   const yupSchema = Yup.object({

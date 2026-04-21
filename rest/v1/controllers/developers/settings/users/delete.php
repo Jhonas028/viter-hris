@@ -1,6 +1,10 @@
 <?php
-
-//check database connection
+//set http header
+require '../../../../core/header.php';
+// use needed funcions
+require '../../../../core/functions.php';
+// use models
+require '../../../../models/developers/settings/users/Users.php';
 
 $conn = null;
 $conn = checkDBConnection();
