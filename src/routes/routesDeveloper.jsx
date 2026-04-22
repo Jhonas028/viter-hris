@@ -3,6 +3,7 @@ import Dashboard from "../pages/developer/dashboard/Dashboard";
 import Employees from "../pages/developer/employees/Employees";
 import Roles from "../pages/developer/settings/roles/Roles";
 import Users from "../pages/developer/settings/users/Users";
+import Memo from "../pages/developer/memo/Memo";
 export const routesDeveloper = [
   {
     path: `${devNavUrl}/${urlDeveloper}`,
@@ -41,6 +42,14 @@ export const routesDeveloper = [
     element: (
       <>
         <Users />
+      </>
+    ),
+  },
+  {
+    path: `${devNavUrl}/${urlDeveloper}/memo`,
+    element: (
+      <>
+        <Memo />
       </>
     ),
   },
