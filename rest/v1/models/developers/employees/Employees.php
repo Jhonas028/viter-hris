@@ -13,6 +13,7 @@ class Employees
     public $employee_middle_name;
     public $employee_last_name;
     public $employee_email;
+    public $employee_department_id;
     public $employee_created;
     public $employee_updated;
 
@@ -24,11 +25,13 @@ class Employees
     public $lastInsertedId;
 
     public $tblEmployees;
+    public $tblSettingsDepartment;
 
     public function __construct($db)
     {
         $this->connection = $db;
         $this->tblEmployees = "employees";
+        $this->tblSettingsDepartment = "settings_department";
     }
 
     public function create()
@@ -41,6 +44,7 @@ class Employees
             $sql .= " employee_middle_name, ";
             $sql .= " employee_last_name, ";
             $sql .= " employee_email, ";
+            $sql .= " employee_department_id, ";
             $sql .= " employee_created, ";
             $sql .= " employee_updated ";
             $sql .= ") values (";
@@ -49,6 +53,7 @@ class Employees
             $sql .= " :employee_middle_name, ";
             $sql .= " :employee_last_name, ";
             $sql .= " :employee_email, ";
+            $sql .= " :employee_department_id, ";
             $sql .= " :employee_created, ";
             $sql .= " :employee_updated ";
             $sql .= " ) ";
@@ -59,6 +64,7 @@ class Employees
                 "employee_middle_name" => $this->employee_middle_name,
                 "employee_last_name" => $this->employee_last_name,
                 "employee_email" => $this->employee_email,
+                "employee_department_id" => $this->employee_department_id,
                 "employee_created" => $this->employee_created,
                 "employee_updated" => $this->employee_updated,
             ]);
@@ -72,10 +78,11 @@ class Employees
     {
         try {
             $sql = "select ";
-            $sql .= " * ";
+            $sql .= " {$this->tblEmployees}.*, {$this->tblSettingsDepartment}.department_name ";
             $sql .= " from {$this->tblEmployees} ";
+            $sql .= " left join {$this->tblSettingsDepartment} on {$this->tblEmployees}.employee_department_id = {$this->tblSettingsDepartment}.department_aid ";
             $sql .= " where true ";
-            $sql .= $this->employee_is_active ?  " and employee_is_active = :employee_is_active " : " ";
+            $sql .= $this->employee_is_active != "" ?  " and employee_is_active = :employee_is_active " : " ";
             $sql .= $this->search != '' ? " and ( " : " ";
             $sql .= $this->search != '' ? " employee_first_name like :employee_first_name " : " ";
             $sql .= $this->search != '' ? "  or employee_middle_name like :employee_middle_name " : " ";
@@ -84,7 +91,7 @@ class Employees
             $sql .= $this->search != '' ? " ) " : " ";
             $query = $this->connection->prepare($sql);
             $params = [];
-            if ($this->employee_is_active) {
+            if ($this->employee_is_active != "") {
                 $params["employee_is_active"] = $this->employee_is_active;
             }
             if ($this->search) {
@@ -94,7 +101,7 @@ class Employees
                 $params["employee_email"] = "%{$this->search}%";
             }
             $query->execute($params);
-        } catch (PROException $e) {
+        } catch (PDOException $e) {
             $query = false;
         }
         return $query;
@@ -103,8 +110,9 @@ class Employees
     {
         try {
             $sql = "select ";
-            $sql .= " * ";
+            $sql .= " {$this->tblEmployees}.*, {$this->tblSettingsDepartment}.department_name ";
             $sql .= " from {$this->tblEmployees} ";
+            $sql .= " left join {$this->tblSettingsDepartment} on {$this->tblEmployees}.employee_department_id = {$this->tblSettingsDepartment}.department_aid ";
             $sql .= " where true ";
             $sql .= $this->employee_is_active != "" ?  " and employee_is_active = :employee_is_active " : " ";
             $sql .= $this->search != '' ? " and ( " : " ";
@@ -130,7 +138,7 @@ class Employees
                 $params["employee_email"] = "%{$this->search}%";
             }
             $query->execute($params);
-        } catch (PROException $e) {
+        } catch (PDOException $e) {
             $query = false;
         }
         return $query;
@@ -143,6 +151,7 @@ class Employees
             $sql .= " employee_middle_name = :employee_middle_name, ";
             $sql .= " employee_last_name = :employee_last_name, ";
             $sql .= " employee_email = :employee_email, ";
+            $sql .= " employee_department_id = :employee_department_id, ";
             $sql .= " employee_updated = :employee_updated ";
             $sql .= " where employee_aid = :employee_aid ";
             $query = $this->connection->prepare($sql);
@@ -151,6 +160,7 @@ class Employees
                 "employee_middle_name" => $this->employee_middle_name,
                 "employee_last_name" => $this->employee_last_name,
                 "employee_email" => $this->employee_email,
+                "employee_department_id" => $this->employee_department_id,
                 "employee_updated" => $this->employee_updated,
                 "employee_aid" => $this->employee_aid,
             ]);

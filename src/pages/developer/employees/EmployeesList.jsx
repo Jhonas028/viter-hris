@@ -120,6 +120,7 @@ const EmployeesList = ({ itemEdit, setItemEdit }) => {
               <th>#</th>
               <th>Status</th>
               <th>Employee Name</th>
+              <th>Department</th>
               <th>Email</th>
               <th></th>
             </tr>
@@ -160,6 +161,7 @@ const EmployeesList = ({ itemEdit, setItemEdit }) => {
                       <td>
                         {item.employee_first_name} {item.employee_last_name}
                       </td>
+                      <td>{item.department_name || "--"}</td>
                       <td>{item.employee_email}</td>
                       <td>
                         <div className="flex items-center gap-3">

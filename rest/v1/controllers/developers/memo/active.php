@@ -20,7 +20,7 @@ if (array_key_exists('id', $_GET)) {
     $val->memo_aid = $_GET['id'];
     $val->memo_is_active = trim($data['isActive']);
     $val->memo_updated = date("Y-m-d H:i:s");
-
+  
     checkId($val->memo_aid);
 
     $query = checkActive($val);

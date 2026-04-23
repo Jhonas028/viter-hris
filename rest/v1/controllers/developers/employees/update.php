@@ -14,7 +14,8 @@ if (array_key_exists("id", $_GET)) {
     $val->employee_middle_name = trim($data['employee_middle_name']);
     $val->employee_last_name = trim($data['employee_last_name']);
     $val->employee_email = $data['employee_email'];
-    $val->employee_updated = date("Y-m-d H:m:s");
+    $val->employee_department_id = $data['employee_department_id'];
+    $val->employee_updated = date("Y-m-d H:i:s");
 
     $employee_name_old = $data['employee_first_name_old'];
 

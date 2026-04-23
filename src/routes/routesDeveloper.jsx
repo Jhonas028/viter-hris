@@ -4,6 +4,7 @@ import Employees from "../pages/developer/employees/Employees";
 import Roles from "../pages/developer/settings/roles/Roles";
 import Users from "../pages/developer/settings/users/Users";
 import Memo from "../pages/developer/memo/Memo";
+import Department from "../pages/developer/settings/department/Department";
 export const routesDeveloper = [
   {
     path: `${devNavUrl}/${urlDeveloper}`,
@@ -50,6 +51,14 @@ export const routesDeveloper = [
     element: (
       <>
         <Memo />
+      </>
+    ),
+  },
+  {
+    path: `${devNavUrl}/${urlDeveloper}/settings/department`,
+    element: (
+      <>
+        <Department />
       </>
     ),
   },

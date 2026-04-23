@@ -38,6 +38,10 @@ export const navList = [
         label: "users",
         path: `${devNavUrl}/${urlDeveloper}/settings/users`,
       },
+      {
+        label: "Department",
+        path: `${devNavUrl}/${urlDeveloper}/settings/department`,
+      },
     ],
   },
 ];
