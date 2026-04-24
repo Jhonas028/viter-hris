@@ -5,6 +5,7 @@ import Roles from "../pages/developer/settings/roles/Roles";
 import Users from "../pages/developer/settings/users/Users";
 import Memo from "../pages/developer/memo/Memo";
 import Department from "../pages/developer/settings/department/Department";
+import NotificationUsers from "../pages/developer/settings/notification/Notification";
 export const routesDeveloper = [
   {
     path: `${devNavUrl}/${urlDeveloper}`,
@@ -59,6 +60,14 @@ export const routesDeveloper = [
     element: (
       <>
         <Department />
+      </>
+    ),
+  },
+  {
+    path: `${devNavUrl}/${urlDeveloper}/settings/notification`,
+    element: (
+      <>
+        <NotificationUsers />
       </>
     ),
   },
