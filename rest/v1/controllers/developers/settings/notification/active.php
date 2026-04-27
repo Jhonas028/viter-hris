@@ -24,7 +24,7 @@ if (array_key_exists('id', $_GET)) {
 
     $query = checkActive($val);
     http_response_code(200);
-    returnSuccess($val, 'notification active', $query);
+    returnSuccess($val, 'notification active', $query);039
 }
 // return 404 if endpoint not available
 checkEndpoint();
