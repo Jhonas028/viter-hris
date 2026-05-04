@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2026 at 09:39 AM
+-- Generation Time: May 04, 2026 at 09:41 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -44,20 +44,22 @@ CREATE TABLE `settings_users` (
 -- Dumping data for table `settings_users`
 --
 
-INSERT INTO `settings_users` (`users_aid`, `users_is_active`, `users_first_name`, `users_last_name`, `users_email`, `users_role_id`, `users_password`, `users_created`, `users_updated`) VALUES
-(1, 1, 'asd', 'asd', 'asdas@adsa', '21', '', '2026-04-20 12:04:48', '2026-04-20 12:04:48'),
-(2, 1, 'aaaaaaaa@asdsa', 'adada', 'asdsda@asds', '24', '', '2026-04-20 12:04:24', '2026-04-20 12:04:24'),
-(3, 1, 'asd', 'ads', 'asdas@sadds', '24', '', '2026-04-20 12:04:28', '2026-04-20 12:04:28'),
-(4, 1, 'as', 'ads', 'das@sad', '24', '', '2026-04-20 12:04:01', '2026-04-20 12:04:01'),
-(5, 1, 'as', 'asd', 'assda@asd', '24', '', '2026-04-20 12:04:07', '2026-04-20 12:04:07'),
-(6, 1, 'ad', 'asd', 'asd@ads', '24', '', '2026-04-20 13:04:37', '2026-04-20 13:04:37'),
-(7, 1, 'ad', 'ads', 'asd@asd', '24', '', '2026-04-20 13:04:49', '2026-04-20 13:04:49'),
-(8, 1, 'asd', 'das', 'as@sd', '25', '', '2026-04-20 13:04:25', '2026-04-20 13:04:25'),
-(9, 1, 'asd', 'ads', 'ads@sd', '24', '', '2026-04-20 13:04:37', '2026-04-20 13:04:37'),
-(10, 1, 'as', 'asd', 'as@sdsada', '24', '', '2026-04-20 14:04:38', '2026-04-20 14:04:38'),
-(11, 1, 'asd', 'asd', 'ads@sad', '25', '', '2026-04-20 14:04:08', '2026-04-20 14:04:08'),
-(12, 0, 'sad', 'ads', 'das@dsa', '24', '', '2026-04-20 14:04:05', '2026-04-20 14:04:05'),
-(13, 1, 'jhonas', 'asd', 'asd@gmailcom', '24', '', '2026-04-20 15:04:34', '2026-04-20 15:04:34');
+INSERT INTO `settings_users` (`users_aid`, `users_is_active`, `users_first_name`, `users_last_name`, `users_email`, `users_role_id`, `users_password`, `users_key`, `users_created`, `users_updated`) VALUES
+(1, 1, 'asd', 'asd', 'asdas@adsa', '21', '', '', '2026-04-20 12:04:48', '2026-04-20 12:04:48'),
+(2, 1, 'aaaaaaaa@asdsa', 'adada', 'asdsda@asds', '24', '', '', '2026-04-20 12:04:24', '2026-04-20 12:04:24'),
+(3, 1, 'asd', 'ads', 'asdas@sadds', '24', '', '', '2026-04-20 12:04:28', '2026-04-20 12:04:28'),
+(4, 1, 'as', 'ads', 'das@sad', '24', '', '', '2026-04-20 12:04:01', '2026-04-20 12:04:01'),
+(5, 1, 'as', 'asd', 'assda@asd', '24', '', '', '2026-04-20 12:04:07', '2026-04-20 12:04:07'),
+(6, 1, 'ad', 'asd', 'asd@ads', '24', '', '', '2026-04-20 13:04:37', '2026-04-20 13:04:37'),
+(7, 1, 'ad', 'ads', 'asd@asd', '24', '', '', '2026-04-20 13:04:49', '2026-04-20 13:04:49'),
+(8, 1, 'asd', 'das', 'as@sd', '25', '', '', '2026-04-20 13:04:25', '2026-04-20 13:04:25'),
+(9, 1, 'asd', 'ads', 'ads@sd', '24', '', '', '2026-04-20 13:04:37', '2026-04-20 13:04:37'),
+(10, 1, 'as', 'asd', 'as@sdsada', '24', '', '', '2026-04-20 14:04:38', '2026-04-20 14:04:38'),
+(11, 1, 'asd', 'asd', 'ads@sad', '25', '', '', '2026-04-20 14:04:08', '2026-04-20 14:04:08'),
+(12, 0, 'sad', 'ads', 'das@dsa', '24', '', '', '2026-04-20 14:04:05', '2026-04-20 14:04:05'),
+(13, 1, 'jhonas', 'asd', 'asd@gmailcom', '24', '', '', '2026-04-20 15:04:34', '2026-04-20 15:04:34'),
+(22, 0, '', '', '', '', '$2y$10$D2HEI6pTKZKgeWI/J5Cda.NHwmvWeDT/V9nli7iWMYBDK8WOIIzOK', '', '2026-05-04 13:05:57', '2026-05-04 15:24:34'),
+(23, 1, 'Jhonas', 'Sotero', 'soterojhonas028@gmail.com', '30', '$2y$10$GPCXTpYVS0XJdQJiDqUYg.d2OOsNWzByDygGnYJ19szEvqWbLSes2', '', '2026-05-04 15:05:59', '2026-05-04 15:30:51');
 
 --
 -- Indexes for dumped tables
@@ -77,7 +79,7 @@ ALTER TABLE `settings_users`
 -- AUTO_INCREMENT for table `settings_users`
 --
 ALTER TABLE `settings_users`
-  MODIFY `users_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `users_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

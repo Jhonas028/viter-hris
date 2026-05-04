@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2026 at 08:51 AM
+-- Generation Time: May 04, 2026 at 09:39 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -41,9 +41,10 @@ CREATE TABLE `settings_roles` (
 -- Dumping data for table `settings_roles`
 --
 
-INSERT INTO `settings_roles` (`role_aid`, `role_is_active`, `role_name`, `role_description`, `role_created`, `role_updated`) VALUES
-(21, 1, 'developer', 'developer', '2026-04-16 10:04:25', '2026-04-16 10:04:25'),
-(23, 1, 'as', 'as', '2026-04-16 12:04:10', '2026-04-16 12:04:10');
+INSERT INTO `settings_roles` (`role_aid`, `role_is_active`, `role_name`, `role_code`, `role_description`, `role_created`, `role_updated`) VALUES
+(30, 1, 'developer', 'r_is_developer', 'developer', '2026-05-04 08:05:24', '2026-05-04 08:05:24'),
+(31, 1, 'viewer', 'r_is_viewer', 'viewer', '2026-05-04 08:05:41', '2026-05-04 08:05:41'),
+(32, 1, 'admin', 'r_is_admin', 'admin', '2026-05-04 08:05:48', '2026-05-04 08:05:48');
 
 --
 -- Indexes for dumped tables
@@ -63,7 +64,7 @@ ALTER TABLE `settings_roles`
 -- AUTO_INCREMENT for table `settings_roles`
 --
 ALTER TABLE `settings_roles`
-  MODIFY `role_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `role_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
