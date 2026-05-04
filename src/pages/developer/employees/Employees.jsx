@@ -13,10 +13,7 @@ const Employees = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);
 
-  const {
-    isLoading,
-    data: dataDepartment,
-  } = useQueryData(
+  const { isLoading, data: dataDepartment } = useQueryData(
     `${apiVersion}/controllers/developers/settings/department/department.php`,
     "get",
     "department",
