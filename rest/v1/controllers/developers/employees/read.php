@@ -3,8 +3,8 @@
 $conn = null;
 $conn = checkDBConnection();
 
-$val = new Memo($conn);
-$val->memo_is_active = 1;
+$val = new Employees($conn);
+$val->employee_is_active = 1;
 $val->search = '';
 
 $query = checkReadAll($val);
