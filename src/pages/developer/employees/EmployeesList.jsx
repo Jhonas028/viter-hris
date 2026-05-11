@@ -122,6 +122,7 @@ const EmployeesList = ({ itemEdit, setItemEdit }) => {
               <th>Employee Name</th>
               <th>Department</th>
               <th>Email</th>
+              <th>Supervisor</th>
               <th></th>
             </tr>
           </thead>
@@ -163,6 +164,11 @@ const EmployeesList = ({ itemEdit, setItemEdit }) => {
                       </td>
                       <td>{item.department_name || "--"}</td>
                       <td>{item.employee_email}</td>
+                      <td>
+                        {item.employee_supervisor_first_name
+                          ? `${item.employee_supervisor_first_name} ${item.employee_supervisor_last_name}`
+                          : "--"}
+                      </td>
                       <td>
                         <div className="flex items-center gap-3">
                           {item.employee_is_active == 1 ? (

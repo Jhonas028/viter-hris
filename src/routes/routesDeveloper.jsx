@@ -6,6 +6,7 @@ import Users from "../pages/developer/settings/users/Users";
 import Memo from "../pages/developer/memo/Memo";
 import Department from "../pages/developer/settings/department/Department";
 import NotificationUsers from "../pages/developer/settings/notification/Notification";
+import DirectReport from "../pages/developer/settings/direct-report/DirectReport";
 export const routesDeveloper = [
   {
     path: `${devNavUrl}/${urlDeveloper}`,
@@ -68,6 +69,14 @@ export const routesDeveloper = [
     element: (
       <>
         <NotificationUsers />
+      </>
+    ),
+  },
+  {
+    path: `${devNavUrl}/${urlDeveloper}/settings/direct-report`,
+    element: (
+      <>
+        <DirectReport />
       </>
     ),
   },
