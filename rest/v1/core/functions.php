@@ -21,6 +21,25 @@ function checkLogin($object)
     return $query;
 }
 
+function tokenUser($object, $token, $key)
+{
+    $response = new Response();
+    $returnData = [];
+    // If token exist then validate
+    if (!empty($token)) returnHandleError('No token found', 'Invalid Credentials.');
+    try {
+        $decoded = JWT::decode($token, $key, array('HS256'));
+        $object->users_email = $decoded->data->email;
+        $result = checkLogin($object);
+        $row - $result->fetch(PDO::FETCH_ASSOC);
+        if (!isset($decoded->data->data)) throw new Error('Invalid account');
+
+        http_response_code(200);
+    } catch (Throwable $e) {
+        returnHandleError('Error', 'Login Error', $e->getMessage());
+    }
+}
+
 function loginAccess(
     $password,
     $hash_password,

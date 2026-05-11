@@ -55,7 +55,7 @@ const Login = () => {
         dispatch(setError(false));
         dispatch(setMessage(""));
         dispatch(setCredentials(data.data[0]));
-        setStorageRoute(data.data[1]);
+        setStorageRoute(data.data.jwt);
         checkRoleToRedirect(navigate, data.data[0]);
       }
     },

@@ -9,6 +9,7 @@ export const urlDeveloper = "developer";
 
 //dev API KEY
 export const devKey = "123devkey";
+export const urlAdmin = "admin";
 
 // format the numbers separated by comma
 export const isEmptyItem = (item, x = "") => {

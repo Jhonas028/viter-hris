@@ -7,13 +7,14 @@ import Memo from "../pages/developer/memo/Memo";
 import Department from "../pages/developer/settings/department/Department";
 import NotificationUsers from "../pages/developer/settings/notification/Notification";
 import DirectReport from "../pages/developer/settings/direct-report/DirectReport";
+import ProtectedRoute from "../pages/access/ProtectedRoute";
 export const routesDeveloper = [
   {
     path: `${devNavUrl}/${urlDeveloper}`,
     element: (
-      <>
+      <ProtectedRoute>
         <Dashboard />
-      </>
+      </ProtectedRoute>
     ),
   },
   {
