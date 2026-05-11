@@ -1,25 +1,37 @@
 import React from "react";
 import { FaIndent } from "react-icons/fa";
 import { MdOutlineLogout, MdOutlineMailOutline } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 import { devNavUrl, urlDeveloper } from "../functions/functions-general";
+import { setCredentials } from "../store/StoreAction";
+import { StoreContext } from "../store/StoreContext";
 
 const Header = () => {
-  const [loading, setLoading] = React.useState(false);
+  const { store, dispatch } = React.useContext(StoreContext);
+  const navigate = useNavigate();
   const [show, setShow] = React.useState(false);
-  const isMobileOrTablet = window.matchMedia("(max-width:1027px)").matches;
-  const [smallScreen, setSmallScreen] = React.useState(window.innerWidth);
   const ref = React.useRef();
-  //   const link = getUserType();
   const link = `${devNavUrl}/${urlDeveloper}`;
   let menuRef = React.useRef();
 
-  //   const roleIsDeveloper = "r_is_developer";
-  const roleIsDeveloper = true;
-  const firstName = roleIsDeveloper ? "John" : "James";
-  const lastName = roleIsDeveloper ? "Doe" : "Gun";
-  const email = roleIsDeveloper ? "john@gmail.com" : "gun@gmail.com";
-  const nickName = "JD";
+  const credentials = store.credentials?.data;
+  const firstName = credentials?.users_first_name ?? "";
+  const lastName = credentials?.users_last_name ?? "";
+  const email = credentials?.users_email ?? "";
+  const nickName =
+    firstName && lastName
+      ? `${firstName[0]}${lastName[0]}`
+      : "??";
+
   const handleShowNavigation = () => {};
+
+  const handleShow = () => setShow((prev) => !prev);
+
+  const handleLogout = () => {
+    localStorage.removeItem("wfstoken");
+    dispatch(setCredentials({}));
+    navigate(`${devNavUrl}/login`);
+  };
   return (
     <>
       <div className="print:hidden fixed z-[52] bg-white w-full flex justify-between items-center h-16 border-solid border-b-2 border-primary px-2">
@@ -45,7 +57,7 @@ const Header = () => {
         <div className="header__avatar pr-0 lg:pr-1" ref={ref}>
           <div
             className="flex items-center pr-2 px-1 gap-2 xl:py-2 lg:pl-4 group cursor-pointer"
-            // onClick={handleShow}
+            onClick={handleShow}
           >
             <div
               className={`p-[1px] duration-[50ms] ease-out border-2 border-transparent hover:border-2 hover:border-primary hover:border-opacity-50 rounded-full ${

@@ -266,6 +266,24 @@ class Users
         }
         return $query;
     }
+    public function readLogin()
+    {
+        try {
+            $sql = "select user.*, roles.role_name as role, roles.role_name, roles.role_code, roles.role_description, roles.role_created, roles.role_updated ";
+            $sql .= " from {$this->tblSettingsUsers} as user ";
+            $sql .= " join {$this->tblSettingsRoles} as roles ";
+            $sql .= " on user.users_role_id = roles.role_aid ";
+            $sql .= " where user.users_is_active = 1 ";
+            $sql .= " and user.users_email = :users_email ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "users_email" => $this->users_email,
+            ]);
+        } catch (PDOException $e) {
+            $query = false;
+        }
+        return $query;
+    }
 
     public function checkEmail()
     {

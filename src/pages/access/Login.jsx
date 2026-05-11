@@ -4,14 +4,21 @@ import React from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { InputText } from "../../components/form-input/FormInputs";
+import { InputText } from "../../components/form-inputs/FormInputs";
 import { queryData } from "../../functions/custom-hooks/queryData";
 import userLogin from "../../functions/custom-hooks/userLogin";
-import { apiVersion, devNavUrl } from "../../functions/functions-general";
+import {
+  apiVersion,
+  checkRoleToRedirect,
+  devNavUrl,
+  setStorageRoute,
+} from "../../functions/functions-general";
+import ButtonSpinner from "../../partials/spinners/ButtonSpinner";
 import FetchingSpinner from "../../partials/spinners/FetchingSpinner";
 import {
   setCredentials,
   setError,
+  setIsLogin,
   setMessage,
   setSuccess,
 } from "../../store/StoreAction";
@@ -40,19 +47,16 @@ const Login = () => {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
       } else {
-        if (store.isLogin) {
-          delete data.data[0].user_other_password;
-          delete data.data[0].role_description;
-          delete data.data[0].role_created;
-          delete data.data[0].role_datetime;
+        delete data.data[0].user_other_password;
+        delete data.data[0].role_description;
+        delete data.data[0].role_created;
+        delete data.data[0].role_datetime;
 
-          dispatch(setError(false));
-          dispatch(setMessage(""));
-          dispatch(setCredentials(data.data[0]));
-          setStorageRoute(data.data[1]);
-          dispatch(setIsLogin(false));
-          checkRoleToRedirect(navigate, data.data[0]);
-        }
+        dispatch(setError(false));
+        dispatch(setMessage(""));
+        dispatch(setCredentials(data.data[0]));
+        setStorageRoute(data.data[1]);
+        checkRoleToRedirect(navigate, data.data[0]);
       }
     },
   });

@@ -70,7 +70,13 @@ export const GetFocus = (id) => {
 export const getUrlParam = (id) => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  // const param = urlParams.get(id);
-  // return param;
   return urlParams;
+};
+
+export const setStorageRoute = (data) => {
+  localStorage.setItem("wfstoken", JSON.stringify(data));
+};
+
+export const checkRoleToRedirect = (navigate, data) => {
+  navigate(`${devNavUrl}/${data.role.toLowerCase()}`);
 };

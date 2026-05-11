@@ -3,10 +3,11 @@
 require 'Database.php';
 require 'Response.php';
 
-function checkLogin($object){
+function checkLogin($object)
+{
     $response = new Response();
     $query = $object->readLogin();
-    if($query->rowCount() == 0){
+    if ($query->rowCount() == 0) {
         $response->setSuccess(false);
         $error = [];
         $error['count'] = 0;
@@ -27,22 +28,26 @@ function loginAccess(
     $row,
     $result,
     $key
-    ){
+) {
     $response = new Response();
-    $error = [];
     $returnData = [];
-    if(password_verify($password, $hash_password)){
-        try{
-            $payload = array(
-                "iss" => "localhost",
-                "aud" => "tm",
-                "iat" => time(),
-                "data" => array("email"=>$email,"data"=>$row)
-            );
-            $jwt = JWT::
-        }catch(Throwable $e){
-
-        }
+    if (password_verify($password, $hash_password)) {
+        $token = bin2hex(random_bytes(32));
+        $userRow = array_merge((array)$row, ['server_date' => date("Y-m-d")]);
+        http_response_code(200);
+        $returnData['data'] = [
+            $userRow,
+            ['token' => $token],
+        ];
+        $returnData['count'] = $result->rowCount();
+        $returnData['success'] = true;
+        $returnData['message'] = 'Access Granted.';
+        $returnData['server_datetime'] = date("Y-m-d H:i:s");
+        $response->setData($returnData);
+        $response->send();
+        exit;
+    } else {
+        returnHandleError('Invalid email or password.', "Login Error", "Invalid credentials");
     }
 }
 

@@ -23,9 +23,8 @@ const Users = () => {
     "roles", //query key
   );
 
-  const filterArrayActiveRoles = dataRoles?.data.filter(
-    (item) => item.role_is_active == 1,
-  );
+  const filterArrayActiveRoles =
+    dataRoles?.data?.filter((item) => item.role_is_active == 1) ?? [];
 
   const handleAdd = () => {
     dispatch(setIsAdd(true));
