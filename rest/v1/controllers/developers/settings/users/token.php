@@ -1,7 +1,6 @@
 <?php
 //set http header
 require '../../../../core/header.php';
-require '../../../../core/Encryption.php';
 // use needed functions
 require '../../../../core/functions.php';
 // use models
@@ -11,7 +10,6 @@ $conn = null;
 $conn = checkDBConnection();
 //models
 $val = new Users($conn);
-$encrypt = new Encryption();
 //get payload
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);
@@ -23,11 +21,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     checkPayload($data);
-    $val->users_email = isset($data['user_other_email']) ? trim($data['user_other_email']) : '';
-    $query = checkLogin($val);
-    $row = $query->fetch();
-    $password = isset($data['password']) ? $data['password'] : '';
-    loginAccess($password, $row['users_password'], $val->users_email, $row, $query, 'viter_hris_secret');
+    $token = isset($data['token']) ? trim($data['token']) : '';
+    if (empty($token)) {
+        returnHandleError('No token found', 'Invalid Credentials.');
+    }
+    $val->users_key = $token;
+    $query = $val->readByToken();
+    if (!$query || $query->rowCount() == 0) {
+        returnHandleError('Invalid token', 'Invalid Credentials.');
+    }
+    $row = $query->fetch(PDO::FETCH_ASSOC);
+    $row['user_is_key_matched'] = true;
+    $response = new Response();
+    $returnData = [];
+    $returnData['data'] = $row;
+    $returnData['success'] = true;
+    $returnData['count'] = 1;
+    $returnData['server_datetime'] = date("Y-m-d H:i:s");
+    $response->setData($returnData);
+    $response->send();
+    exit;
 }
 
 http_response_code(200);

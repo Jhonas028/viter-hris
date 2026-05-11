@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { routesAdmin } from "./routes/routesAdmin";
 import { routesDeveloper } from "./routes/routesDeveloper";
 import { StoreProvider } from "./store/StoreContext";
 import PageNotFound from "./partials/PageNotFound";
@@ -18,6 +19,9 @@ function App() {
                 return <Route key={key} {...routesProps} />;
               })}
               {routesDeveloper.map(({ ...routesProps }, key) => {
+                return <Route key={key} {...routesProps} />;
+              })}
+              {routesAdmin.map(({ ...routesProps }, key) => {
                 return <Route key={key} {...routesProps} />;
               })}
             </Routes>

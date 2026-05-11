@@ -1,27 +1,18 @@
-import useQueryData from "../../functions/custom-hooks/useQueryData";
 import { queryData } from "../../functions/custom-hooks/queryData";
-// import { InputText } from "@/components/helpers/FormInputs";
-// import { apiVersion, devNavUrl } from "@/components/helpers/functions-general";
-// import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
-// import {
-//   setError,
-//   setForgotPassSuccess,
-//   setMessage,
-// } from "@/store/StoreAction";
-// import { StoreContext } from "@/store/StoreContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import React from "react";
 import { FaCheck } from "react-icons/fa";
 import * as Yup from "yup";
 import { StoreContext } from "../../store/StoreContext";
-import { apiVersion } from "../../functions/functions-general";
+import { apiVersion, devNavUrl } from "../../functions/functions-general";
 import {
   setError,
   setForgotPassSuccess,
   setMessage,
 } from "../../store/StoreAction";
-import { InputText } from "../../components/form-input/FormInputs";
+import { InputText } from "../../components/form-inputs/FormInputs";
+import ButtonSpinner from "../../partials/spinners/ButtonSpinner";
 
 const ForgotPassword = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -30,11 +21,13 @@ const ForgotPassword = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (values) =>
-      queryData(`${apiVersion}/other-user/reset`, "post", values),
+      queryData(
+        `${apiVersion}/controllers/developers/settings/users/reset-password.php`,
+        "post",
+        values,
+      ),
     onSuccess: (data) => {
-      // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["other"] });
-      // show error box
       if (!data.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
@@ -49,10 +42,11 @@ const ForgotPassword = () => {
   };
 
   const yupSchema = Yup.object({
-    item: Yup.string().trim().required("Required"),
+    item: Yup.string().trim().required("Required").email("Invalid email"),
   });
 
   React.useEffect(() => {
+    dispatch(setError(false));
     dispatch(setForgotPassSuccess(true));
   }, []);
 
@@ -72,9 +66,9 @@ const ForgotPassword = () => {
                 Success!
               </h2>
               <p className="text-sm mb-6 text-justify">
-                We have sent instructions to reset your password. If you haven't
-                received the email, please check your spam or junk folder as
-                well.
+                We have sent instructions to reset your password. If you
+                haven't received the email, please check your spam or junk
+                folder as well.
               </p>
 
               <p className="mt-3 text-sm">
@@ -92,8 +86,7 @@ const ForgotPassword = () => {
               <Formik
                 initialValues={initVal}
                 validationSchema={yupSchema}
-                onSubmit={async (values, { setSubmitting, resetForm }) => {
-                  // mutate data
+                onSubmit={async (values) => {
                   mutation.mutate(values);
                 }}
               >
@@ -112,17 +105,10 @@ const ForgotPassword = () => {
                       {store.error && (
                         <div className="bg-red-50 p-2 rounded-sm mb-3 border-b border-b-red-600">
                           <p className="m-0 text-red-600">
-                            Invalid email.
+                            {store.message || "Email not found."}
                             <br />
                             <br /> In case you forgot your account,
-                            <br /> please contact{" "}
-                            <a
-                              href="mailto:duane@worldfocusinc.com"
-                              className="text-primary"
-                            >
-                              Duane Masters <br />
-                              duane@worldfocusinc.com
-                            </a>
+                            <br /> please contact your administrator.
                           </p>
                         </div>
                       )}

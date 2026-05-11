@@ -285,6 +285,61 @@ class Users
         return $query;
     }
 
+    public function readByToken()
+    {
+        try {
+            $sql = "select user.*, roles.role_name as role, roles.role_name, roles.role_code, roles.role_description, roles.role_created, roles.role_updated ";
+            $sql .= " from {$this->tblSettingsUsers} as user ";
+            $sql .= " join {$this->tblSettingsRoles} as roles ";
+            $sql .= " on user.users_role_id = roles.role_aid ";
+            $sql .= " where user.users_is_active = 1 ";
+            $sql .= " and user.users_key = :users_key ";
+            $query = $this->connection->prepare($sql);
+            $query->execute(["users_key" => $this->users_key]);
+        } catch (PDOException $e) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function updateSessionToken()
+    {
+        try {
+            $sql = " update {$this->tblSettingsUsers} set ";
+            $sql .= " users_key = :users_key, ";
+            $sql .= " users_updated = :users_updated ";
+            $sql .= " where users_email = :users_email ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "users_key" => $this->users_key,
+                "users_updated" => date("Y-m-d H:i:s"),
+                "users_email" => $this->users_email,
+            ]);
+        } catch (PDOException $e) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function resetPassword()
+    {
+        try {
+            $sql = " update {$this->tblSettingsUsers} set ";
+            $sql .= " users_key = :users_key, ";
+            $sql .= " users_updated = :users_updated ";
+            $sql .= " where users_email = :users_email ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "users_key" => $this->users_key,
+                "users_updated" => $this->users_updated,
+                "users_email" => $this->users_email,
+            ]);
+        } catch (PDOException $e) {
+            $query = false;
+        }
+        return $query;
+    }
+
     public function checkEmail()
     {
         try {

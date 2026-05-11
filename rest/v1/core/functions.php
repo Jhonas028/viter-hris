@@ -46,12 +46,18 @@ function loginAccess(
     $email,
     $row,
     $result,
-    $key
+    $key,
+    $object = null
 ) {
     $response = new Response();
     $returnData = [];
     if (password_verify($password, $hash_password)) {
         $token = bin2hex(random_bytes(32));
+        if ($object !== null) {
+            $object->users_key = $token;
+            $object->users_email = $email;
+            $object->updateSessionToken();
+        }
         $userRow = array_merge((array)$row, ['server_date' => date("Y-m-d")]);
         http_response_code(200);
         $returnData['data'] = [

@@ -75,7 +75,7 @@ export const getUrlParam = (id) => {
 };
 
 export const setStorageRoute = (data) => {
-  localStorage.setItem("wfstoken", JSON.stringify(data));
+  localStorage.setItem("hristoken", JSON.stringify(data));
 };
 
 export const checkRoleToRedirect = (navigate, data) => {

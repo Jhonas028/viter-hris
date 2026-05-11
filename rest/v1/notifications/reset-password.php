@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\Exception;
 include_once("mail-config.php");
 include_once("templates/reset-password.php");
 
-function sendEmail($password_link, $email, $key)
+function sendResetPasswordEmail($password_link, $email, $key)
 {
 	//trigger exception in a "try" block
 	try {

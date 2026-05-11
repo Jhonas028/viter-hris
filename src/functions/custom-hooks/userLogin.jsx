@@ -5,10 +5,11 @@ const userLogin = (navigate) => {
   const [loginLoading, setLoginLoading] = useState(true);
 
   useEffect(() => {
-    const wfstoken = JSON.parse(localStorage.getItem("wfstoken"));
-    if (wfstoken) {
-      navigate(`${devNavUrl}/${urlDeveloper}`);
+    const hristoken = JSON.parse(localStorage.getItem("hristoken"));
+    if (hristoken && hristoken.role) {
+      navigate(`${devNavUrl}/${hristoken.role}`);
     } else {
+      if (hristoken) localStorage.removeItem("hristoken");
       setLoginLoading(false);
     }
   }, []);

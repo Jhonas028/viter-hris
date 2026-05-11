@@ -18,22 +18,22 @@ const Header = () => {
   const firstName = credentials?.users_first_name ?? "";
   const lastName = credentials?.users_last_name ?? "";
   const email = credentials?.users_email ?? "";
+  const role = credentials?.role ?? "";
   const nickName =
-    firstName && lastName
-      ? `${firstName[0]}${lastName[0]}`
-      : "??";
+    firstName && lastName ? `${firstName[0]}${lastName[0]}` : "??";
 
   const handleShowNavigation = () => {};
 
   const handleShow = () => setShow((prev) => !prev);
 
   const handleLogout = () => {
-    localStorage.removeItem("wfstoken");
+    localStorage.removeItem("hristoken");
     dispatch(setCredentials({}));
     navigate(`${devNavUrl}/login`);
   };
   return (
     <>
+      {store.isAccountUpdated && <ScreenSpinner />}
       <div className="print:hidden fixed z-[52] bg-white w-full flex justify-between items-center h-16 border-solid border-b-2 border-primary px-2">
         <div className="flex items-center lg:w-full lg:justify-normal relative z-10">
           <div className="group-hover:opacity-20 flex items-center lg:justify-start lg:min-h-[44px] lg:min-w-[170px] max-h-[44px] max-w-[170px] m-0.5">
@@ -83,7 +83,7 @@ const Header = () => {
                   {firstName} {lastName}
                 </li>
 
-                <li className="mb-0 pb-2 capitalize text-xs">Developer</li>
+                <li className="mb-0 pb-2 capitalize text-xs">{role}</li>
 
                 <li className="pb-2 flex items-center gap-2 text-xs">
                   <MdOutlineMailOutline />

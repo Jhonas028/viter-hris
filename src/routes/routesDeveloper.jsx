@@ -20,65 +20,65 @@ export const routesDeveloper = [
   {
     path: `${devNavUrl}/${urlDeveloper}/dashboard`,
     element: (
-      <>
+      <ProtectedRoute>
         <Dashboard />
-      </>
+      </ProtectedRoute>
     ),
   },
   {
     path: `${devNavUrl}/${urlDeveloper}/employees`,
     element: (
-      <>
+      <ProtectedRoute>
         <Employees />
-      </>
+      </ProtectedRoute>
     ),
   },
   {
     path: `${devNavUrl}/${urlDeveloper}/settings/role`,
     element: (
-      <>
+      <ProtectedRoute>
         <Roles />
-      </>
+      </ProtectedRoute>
     ),
   },
   {
     path: `${devNavUrl}/${urlDeveloper}/settings/users`,
     element: (
-      <>
+      <ProtectedRoute>
         <Users />
-      </>
+      </ProtectedRoute>
     ),
   },
   {
     path: `${devNavUrl}/${urlDeveloper}/memo`,
     element: (
-      <>
+      <ProtectedRoute>
         <Memo />
-      </>
+      </ProtectedRoute>
     ),
   },
   {
     path: `${devNavUrl}/${urlDeveloper}/settings/department`,
     element: (
-      <>
+      <ProtectedRoute>
         <Department />
-      </>
+      </ProtectedRoute>
     ),
   },
   {
     path: `${devNavUrl}/${urlDeveloper}/settings/notification`,
     element: (
-      <>
+      <ProtectedRoute>
         <NotificationUsers />
-      </>
+      </ProtectedRoute>
     ),
   },
   {
     path: `${devNavUrl}/${urlDeveloper}/settings/direct-report`,
     element: (
-      <>
+      <ProtectedRoute>
         <DirectReport />
-      </>
+      </ProtectedRoute>
     ),
   },
 ];

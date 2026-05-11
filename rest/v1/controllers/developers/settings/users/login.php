@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $query = checkLogin($val);
     $row = $query->fetch();
     $password = isset($data['password']) ? $data['password'] : '';
-    loginAccess($password, $row['users_password'], $val->users_email, $row, $query, 'viter_hris_secret');
+    loginAccess($password, $row['users_password'], $val->users_email, $row, $query, 'viter_hris_secret', $val);
 }
 
 http_response_code(200);

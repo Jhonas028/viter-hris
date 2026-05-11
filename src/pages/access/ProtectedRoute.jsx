@@ -12,9 +12,15 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { queryData } from "../../functions/custom-hooks/queryData";
-import { devNavUrl, urlAdmin } from "../../functions/functions-general";
+import {
+  apiVersion,
+  devNavUrl,
+  urlAdmin,
+  urlDeveloper,
+} from "../../functions/functions-general";
 import PageNotFound from "../../partials/PageNotFound";
 import FetchingSpinner from "../../partials/spinners/FetchingSpinner";
+import { setCredentials } from "../../store/StoreAction";
 import { StoreContext } from "../../store/StoreContext";
 
 const ProtectedRoute = ({ children }) => {
@@ -63,20 +69,14 @@ const ProtectedRoute = ({ children }) => {
         );
         setIsAuth("123");
         setLoading(false);
-        delete login.data.user_other_password;
-        delete login.data.user_key;
-        delete login.data.role_description;
-        delete login.data.role_created;
-        delete login.data.role_datetime;
-        console.log(login);
       }
 
       if (
         !login.success ||
         login.data.role.toLowerCase() !== login.data.role_name.toLowerCase() ||
         (currentPath !== "" &&
-          (currentPath.toLowerCase() === UrlDeveloper.toLowerCase() ||
-            currentPath.toLowerCase() === UrlAdmin.toLowerCase()) &&
+          (currentPath.toLowerCase() === urlDeveloper.toLowerCase() ||
+            currentPath.toLowerCase() === urlAdmin.toLowerCase()) &&
           currentPath !== login.data.role.toLowerCase())
       ) {
         setPageStatus(true);
